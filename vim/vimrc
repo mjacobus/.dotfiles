@@ -1,147 +1,19 @@
 let mapleader = ","
 
-source ~/.vim/plugins.vim
-source ~/.vim/functions.vim
-source ~/.vim/abbreviations.vim
-source ~/.vim/mappings.vim
+"=========================================================================
+" Plugins: Vundle config
+"=========================================================================
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-"===============================================================================
-" Options:
-"===============================================================================
-set background=dark
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/Vundle.vim
+call vundle#begin()
+
+" bundles here
+
+" ending vundle
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 syntax on
-
-" different color for each paren pairs
-let vimclojure#ParenRainbow = 1
-
-set autoindent
-set autoread
-set backspace=2
-set backspace=indent,eol,start
-set cursorline
-set directory=/tmp/
-set display=lastline
-set expandtab tabstop=2 softtabstop=2 shiftwidth=2
-set foldlevel=1
-set foldmethod=syntax
-set guicursor=a:blinkon0
-set hidden
-set hlsearch
-set ignorecase smartcase
-set laststatus=2
-set list
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-set mouse=""
-set nobackup
-set noincsearch
-set noswapfile
-set nowrap
-set number numberwidth=2
-set pastetoggle=<F3>
-set ruler rulerformat=%=%l/%L
-set scrolloff=4 sidescrolloff=10
-set showcmd
-set showmatch
-set smarttab
-set splitbelow
-set splitright
-set tabpagemax=20
-set tags+=./tags.vendors,tags.vendors
-set ttyfast
-set wildmenu
-set wildmode=list:longest,full
-
-set statusline=%f       " file name
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] " file format
-set statusline+=%h      " help file flag
-set statusline+=%m      " modified flag
-set statusline+=%r      " read only flag
-set statusline+=%y      " filetype
-set statusline+=%=      " left/right separator
-set statusline+=%c,     " cursor column
-set statusline+=%l/%L   " cursor line/total lines
-set statusline+=\ %P    " percent through file
-
-" Conditional settings
-if exists("+undodir")
-  set undodir=~/.vim/undodir
-  set undofile
-  if filewritable(&undodir) == 0
-    call mkdir(&undodir, "p")
-  endif
-endif
-
-if exists("+colorcolumn")
-  set colorcolumn=80
-endif
-
-if has("mac")
-  set clipboard=unnamed
-elseif has("unix")
-  set clipboard=unnamedplus
-endif
-
-if exists("+relativenumber")
-  set relativenumber
-endif
-
-" visualbel causes some weird char when in gnome terminal
-" set visualbell
-
-"===============================================================================
-" Autocommands:
-"===============================================================================
-autocmd BufWrite * :call <sid>MkdirsIfNotExists(expand("<afile>:h"))
-
-" TODO: find out why it wont work when the function is not herer
-function! <SID>MkdirsIfNotExists(directory)
-  if(!isdirectory(a:directory))
-    call system("mkdir -p ".shellescape(a:directory))
-  endif
-endfunction
-
-" remember last position in file
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
-
-" Thorfile, Rakefile, Vagrantfile, and Gemfile are Ruby
-autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
-
-" hb is handlebars
-autocmd BufNewFile,BufRead *.hb set ai filetype=handlebars
-
-" hbs is handlebars
-autocmd BufNewFile,BufRead *.hbs set ai filetype=handlebars
-
-" JSON is JS
-autocmd BufNewFile,BufRead *.json set ai filetype=javascript
-
-" enable spell check
-autocmd FileType gitcommit setlocal spell spelllang=en_us,pt_br
-autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us,pt_br
-autocmd BufRead,BufNewFile *.txt setlocal spell spelllang=en_us,pt_br
-
-"===============================================================================
-" Appearence:
-"===============================================================================
-color lucius
-" highlight ajustment
-highligh MatchParen cterm=bold ctermbg=none ctermfg=green
-
-" improved highlight for php: https://github.com/StanAngeloff/php.vim
-function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
-endfunction
-
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
-augroup END
-
-"===============================================================================
-" Allow overriding these settings:
-"===============================================================================
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
