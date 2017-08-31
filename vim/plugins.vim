@@ -61,7 +61,7 @@ Bundle "shawncplus/Vim-toCterm"
 Bundle "tpope/vim-eunuch"
 " Bundle "tpope/vim-vinegar"
 Bundle "tpope/vim-speeddating"
-" Bundle "Valloric/YouCompleteMe"
+Bundle "Valloric/YouCompleteMe"
 Bundle "janko-m/vim-test"
 
 " javascript

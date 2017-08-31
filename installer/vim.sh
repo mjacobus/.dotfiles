@@ -21,4 +21,19 @@ fi
 
 vim +BundleInstall +BundleClean +BundleClean +quitall
 
-# cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer
+# https://github.com/Valloric/YouCompleteMe
+
+cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer
+# or
+# cd ~/.vim/bundle/YouCompleteMe && ./install.sh --all
+
+mkdir /tmp/eclim
+wget -c https://github.com/ervandew/eclim/releases/download/2.7.0/eclim_2.7.0.jar -P /tmp/eclim
+
+# install java runtime
+# https://www.java.com/en/download/
+# or here? http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+# #confused
+
+cd /eclim
+java -jar eclim_2.7.0.jar
