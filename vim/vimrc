@@ -211,6 +211,235 @@ noremap <leader>g1 :diffget //1<CR>
 noremap <leader>gj :diffget //3<CR>
 noremap <leader>gf :diffget //2<CR>
 
+
+Plug 'mattn/webapi-vim' " gist-vim dependency
+Plug 'mattn/gist-vim'
+
+" gist
+if has("mac")
+  let g:gist_clip_command = 'pbcopy'
+elseif has("unix")
+  let g:gist_clip_command = 'xclip -selection clipboard'
+endif
+
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+
+Plug 'jparise/vim-graphql'
+Plug 'othree/html5.vim'
+
+" it looks weird on nvim
+if !has('nvim')
+  Plug 'Yggdroot/indentLine'
+  let g:indentLine_char = '▏'
+endif
+
+" PHP plugins
+
+" TODO: A good read for autocompletion. I need to make it work
+" https://phpactor.github.io/phpactor/vim-plugin.html"
+
+" An up-to-date Vim syntax for PHP.
+Plug 'StanAngeloff/php.vim'
+
+Plug 'captbaritone/better-indent-support-for-php-with-html'
+
+Plug 'arnaud-lb/vim-php-namespace'
+nnoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+
+Plug 'docteurklein/php-getter-setter.vim'
+
+autocmd FileType php nnoremap <leader>pg :InsertGetterOnly<cr>
+autocmd FileType php nnoremap <leader>ps :InsertSetterOnly<cr>
+autocmd FileType php nnoremap <leader>pgs :InsertBothGetterSetter<cr>
+
+
+Plug 'roxma/ncm-phpactor'
+Plug 'phpactor/phpactor' ,  {'do': 'composer install'}
+autocmd FileType php setlocal omnifunc=phpactor#Complete
+
+
+" Include use statement
+autocmd FileType php nmap <Leader>u :call phpactor#UseAdd()<CR>
+
+" Invoke the context menu
+autocmd FileType php nmap <Leader>mm :call phpactor#ContextMenu()<CR>
+
+" Goto definition of class or class member under the cursor
+autocmd FileType php nmap <Leader>o :call phpactor#GotoDefinition()<CR>
+
+" Transform the classes in the current file
+autocmd FileType php nmap <Leader>tt :call phpactor#Transform()<CR>
+
+" Generate a new class (replacing the current file)
+autocmd FileType php nmap <Leader>cc :call phpactor#ClassNew()<CR>
+
+" Extract method from selection
+autocmd FileType php vmap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
+
+" ruby
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'vim-scripts/ruby-matchit'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+Plug 'ngmy/vim-rubocop'
+" Plug 'uptech/vim-open-alternate'
+Plug 'noprompt/vim-yardoc'
+Plug 'hallison/vim-rdoc'
+
+
+" rubocop
+let g:vimrubocop_keymap = 0
+
+autocmd FileType ruby nnoremap <leader>ccs :RuboCop<cr>
+autocmd FileType ruby nnoremap <leader>av :call OpenAlternateFile()<cr>
+
+" rails.vim
+" nnoremap <leader>av :AV<cr>
+nnoremap <leader>as :AS<cr>
+nnoremap <Leader>va :AV<cr>
+nnoremap <Leader>sa :AS<cr>
+nnoremap <Leader>vc :RVcontroller<cr>
+nnoremap <Leader>sc :RScontroller<cr>
+nnoremap <Leader>vu :RVunittest<CR>
+nnoremap <Leader>su :RSunittest<CR>
+nnoremap <Leader>vv :RVview<cr>
+nnoremap <Leader>sv :RSview<cr>
+nnoremap <Leader>m :Rmodel<cr>
+nnoremap <Leader>sm :RSmodel<cr>
+nnoremap <Leader>vm :RVmodel<cr>
+
+" Javascript plugins
+
+" Plug 'othree/javascript-libraries-syntax.vim'
+" Plug 'vim-scripts/JavaScript-Indent'
+Plug 'pangloss/vim-javascript'
+Plug 'kchmck/vim-coffee-script'
+Plug 'isRuslan/vim-es6'
+Plug 'mxw/vim-jsx'
+Plug 'HerringtonDarkholme/yats.vim'
+
+" mxw/vim-jsx
+let g:jsx_ext_required = 0
+
+" End of language specific plugins
+
+Plug 'scrooloose/syntastic'
+
+" syntastic is too slow for haml and sass
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes': [],
+                           \ 'passive_filetypes': ['haml','scss','sass'] }
+
+let g:syntastic_php_phpcs_args='--standard=PSR2'
+
+Plug 'itchyny/lightline.vim'
+
+" itchyny/lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \ },
+      \ }
+
+
+let g:lightline.enable = {
+      \ 'statusline': 1,
+      \ 'tabline': 0
+      \ }
+
+function! LightlineFilename()
+  return expand('%:t') !=# '' ? expand('%:f') : '[No Name]'
+endfunction
+
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0
+
+Plug 'scrooloose/nerdtree'
+
+Plug 'godlygeek/tabular'
+
+" tabular
+function! CustomTabularPatterns()
+  if exists('g:tabular_loaded')
+    AddTabularPattern! symbols / :/l0
+    AddTabularPattern! hash /^[^>]*\zs=>/
+    AddTabularPattern! chunks / \S\+/l0
+    AddTabularPattern! assignment / = /l0
+    AddTabularPattern! comma /^[^,]*,/l1
+    AddTabularPattern! colon /:\zs /l0
+    AddTabularPattern! options_hashes /:\w\+ =>/
+  endif
+endfunction
+
+autocmd VimEnter * call CustomTabularPatterns()
+
+nnoremap <leader>a\| :Tabularize /\|<CR>
+vnoremap <leader>a\| :Tabularize /\|<CR>
+nnoremap <leader>a= :Tabularize /=<CR>
+vnoremap <leader>a= :Tabularize /=<CR>
+nnoremap <leader>a: :Tabularize /:\zs<CR>
+vnoremap <leader>a: :Tabularize /:\zs<CR>
+nnoremap <leader>ar :Tabularize /=><CR>
+vnoremap <leader>ar :Tabularize /=><CR>
+
+let NERDTreeShowHidden=1
+" nerdtree
+nnoremap <c-n> :NERDTreeToggle<CR>
+
+
+Plug 'sirver/ultisnips'
+Plug 'mjacobus/vim-snippets'
+
+" Ultisnips
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:snips_author="Marcelo Jacobus <marcelo.jacobus@gmail.com>"
+
+Plug 'janko-m/vim-test'
+
+" vim test
+nnoremap <silent> <leader>t :TestNearest<CR>
+nnoremap <silent> <leader>T :TestFile<CR>
+nnoremap <silent> <leader>at :TestSuite<CR>
+nnoremap <silent> <leader>lt :TestLast<CR>
+nnoremap <silent> <leader>gt :TestVisit<CR>
+
+let g:test#javascript#jasmine#file_pattern = '\v^.*spec\.(js|jsx|coffee)$'
+
+
+" let test#ruby#spec_framework = "minitest"
+let test#ruby#spec_framework = "rspec"
+nnoremap <leader><leader>t :call SwitchSpecCommand()<cr>
+
+function! SwitchSpecCommand()
+  if g:test#ruby#spec_framework == "rspec"
+    let g:test#ruby#minitest#file_pattern = '_\(spec\|test\)\.rb'
+    let g:test#ruby#spec_framework = "minitest"
+  else
+    " vim test will trigger rspec
+    let g:test#ruby#minitest#file_pattern = '_test\.rb'
+    let g:test#ruby#spec_framework = "rspec"
+  endif
+
+  echo "using " . g:test#ruby#spec_framework . " for _spec.rb"
+endfunction
+
+" let test#strategy = "dispatch_background"
+
+
+" vim-to-cterm
+Plug 'shawncplus/Vim-toCterm'
+nnoremap tocterm :source ~/.vimplugged/Vim-toCterm/tocterm.vim<CR>
+
 " common files for vim and neovim
 for f in split(glob('~/.vim/plugins/*.vim'), '\n')
   exe 'source' f
