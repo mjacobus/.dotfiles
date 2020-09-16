@@ -142,6 +142,33 @@ Plug 'weierophinney/argumentrewrap'
 
 nnoremap <leader>wa :call argumentrewrap#RewrapArguments()<CR>
 
+Plug 'yukunlin/auto-pairs' " fixed 'jiangmiao/auto-pairs'
+
+" TODO: test plugins http://web-techno.net/vim-php-ide/
+
+Plug 'Lokaltog/vim-easymotion'
+Plug 'airblade/vim-gitgutter'
+Plug 'austintaylor/vim-commaobject'
+Plug 'joonty/vdebug'
+Plug 'kana/vim-textobj-user'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-surround'
+
+" Colors
+" Plug 'chriskempson/base16-vim'
+" Plug 'flazz/vim-colorschemes'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'endel/vim-github-colorscheme'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'chriskempson/base16-vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'mhartington/oceanic-next'
+
+" templates
+Plug 'slim-template/vim-slim'
+
 " common files for vim and neovim
 for f in split(glob('~/.vim/plugins/*.vim'), '\n')
   exe 'source' f
