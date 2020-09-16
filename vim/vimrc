@@ -138,6 +138,10 @@ nnoremap <leader>gp :cprev<CR>
 nnoremap <leader>gq :ccl<CR>
 nnoremap <leader>gl :cwindow<CR>
 
+Plug 'weierophinney/argumentrewrap'
+
+nnoremap <leader>wa :call argumentrewrap#RewrapArguments()<CR>
+
 " common files for vim and neovim
 for f in split(glob('~/.vim/plugins/*.vim'), '\n')
   exe 'source' f
