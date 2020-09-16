@@ -169,6 +169,59 @@ Plug 'mhartington/oceanic-next'
 " templates
 Plug 'slim-template/vim-slim'
 
+Plug 'mechatroner/rainbow_csv'
+
+" this is ctrlp config
+" there is no currently ctrl p
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v(\.(git|hg|svn|sass-cache)|data|tmp|log|node_modules)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+" ctrl P
+let g:ctrlp_max_height = 30
+let g:ctrlp_show_hidden = 1
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files .']
+" let g:ctrlp_working_path_mode = 'c'
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+nnoremap <leader>pt :CtrlPTag<cr>
+
+" https://github.com/JazzCore/ctrlp-cmatcher#installation
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+
+" this ends ctrlp config
+
+Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-eunuch'
+
+nnoremap <leader>mv :Move<space>
+nnoremap <leader>rn :Rename<space>
+nnoremap <leader>rm :Delete<cr>
+
+Plug 'tpope/vim-fugitive'
+
+" vim fugitive
+autocmd BufReadPost fugitive://* set bufhidden=delete
+nnoremap <Leader>gac :Gcommit -am ""<LEFT>
+nnoremap <Leader>gc :Gcommit -m ""<LEFT>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>gb :Gblame<cr>
+
+" Resolving conflics
+" Vimcasts #33
+" also https://www.youtube.com/watch?v=PO6DxfGPQvw
+" nnoremap <leader>gd :Gdiff<cr>
+" " get target version: diff get target
+" nnoremap <leader>dgt :diffget //2 \| :diffupdate<cr>
+" " get branch version: diff get branch
+" nnoremap <leader>dgb :diffget //3 \| :diffupdate<cr>
+
+noremap <leader>g1 :diffget //1<CR>
+noremap <leader>gj :diffget //3<CR>
+noremap <leader>gf :diffget //2<CR>
+
 " common files for vim and neovim
 for f in split(glob('~/.vim/plugins/*.vim'), '\n')
   exe 'source' f
