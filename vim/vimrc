@@ -1,12 +1,6 @@
 let mapleader = " "
 set nocompatible
 
-if !filereadable(".vim-skip-plugins")
-  source ~/.vim/plugins.vim
-end
-source ~/.vim/functions.vim
-source ~/.vim/abbreviations.vim
-source ~/.vim/mappings.vim
 
 "===============================================================================
 " Options:
@@ -125,6 +119,17 @@ autocmd BufNewFile,BufRead *.json set ai filetype=javascript
 autocmd FileType gitcommit setlocal spell spelllang=en_us,pt_br,de_de
 autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us,pt_br,de_de
 autocmd BufRead,BufNewFile *.txt setlocal spell spelllang=en_us,pt_br,de_de
+
+"===============================================================================
+" Pluggins
+"===============================================================================
+if !filereadable(".vim-skip-plugins")
+  source ~/.vim/plugins.vim
+end
+source ~/.vim/functions.vim
+source ~/.vim/abbreviations.vim
+source ~/.vim/mappings.vim
+
 
 "===============================================================================
 " Appearence:
