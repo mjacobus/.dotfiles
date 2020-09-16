@@ -123,9 +123,27 @@ autocmd BufRead,BufNewFile *.txt setlocal spell spelllang=en_us,pt_br,de_de
 "===============================================================================
 " Pluggins
 "===============================================================================
-if !filereadable(".vim-skip-plugins")
-  source ~/.vim/plugins.vim
-end
+call plug#begin('~/.vimplugged')
+
+" common files for vim and neovim
+for f in split(glob('~/.vim/plugins/*.vim'), '\n')
+  exe 'source' f
+endfor
+
+
+" Specific files for nvim or vim 
+if has('nvim')
+  for f in split(glob('~/.vim/plugins/nvim/*.vim'), '\n')
+    exe 'source' f
+  endfor
+else
+  for f in split(glob('~/.vim/plugins/vim/*.vim'), '\n')
+    exe 'source' f
+  endfor
+endif
+
+call plug#end()
+
 source ~/.vim/functions.vim
 source ~/.vim/abbreviations.vim
 source ~/.vim/mappings.vim
