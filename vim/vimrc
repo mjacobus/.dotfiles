@@ -1,0 +1,45 @@
+" https://github.com/leeren/dotfiles/blob/master/vim/.vimrc
+
+let mapleader = " "
+" Basics {{{
+filetype plugin indent on         " Add filetype, plugin, and indent support
+syntax on                         " Turn on syntax highlighting
+"}}}
+
+" Variable Assignments {{{
+let $MYVIMRC="~/.vim/vimrc"
+let $MYVIMDIR="~/.vim"
+" }}}
+
+" Settings {{{
+set shell=/usr/bin/zsh            " Prefer zsh for shell-related tasks
+set grepprg=LC_ALL=C\ grep\ -rns  " Faster ASCII-based grep
+set expandtab                     " Prefer spaces over tabs
+set hidden                        " Prefer hiding over unloading buffers
+set wildcharm=<C-z>               " Macro-compatible command-line wildchar
+set path=.,,**                    " Search relative to current file + directory
+set noswapfile                    " No swapfiles period.
+set tags=./tags;,tags;            " ID Tags relative to current file + directory
+set shiftwidth=2                  " Indentation defaults (<< / >> / == / auto)
+set shiftround                    " Snap indents via > or < to multiples of sw
+" }}}
+
+" Mappings {{{
+" Self-explanatory convenience mappings
+nnoremap <leader>f /
+nnoremap <leader>s :w<cr>
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>bdd :bd!<cr>
+nnoremap <leader>q :q<cr>
+nnoremap <leader>qq :q!<cr>
+inoremap jj <Esc>
+noremap <C-k> <C-p>
+noremap <C-p> <Up>$
+inoremap <C-j> <CR><C-o>O<C-t>
+inoremap <C-Return> <Esc>
+nnoremap ' `
+vnoremap ; :
+vnoremap : ;
+nnoremap ; :
+nnoremap : ;
+"}}}
