@@ -15,7 +15,7 @@ nnoremap <silent> p :call ClipboardPaste()<cr>p
 
 
 " returns to the previous buffer and closes all terminal buffers
-nnoremap  <cr> :buffer #<cr>:bd! term://.<cr>
+nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
 
 set termguicolors
 colorscheme OceanicNext
