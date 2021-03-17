@@ -54,6 +54,15 @@ if exists("+undodir")
   if filewritable(&undodir) == 0
     call mkdir(&undodir, "p")
   endif
+
+  " nightly nvim has a different undosyste
+  if has('nvim')
+    set undodir=~/.nvimundodir
+    set undofile
+    if filewritable(&undodir) == 0
+      call mkdir(&undodir, "p")
+    endif
+  endif
 endif
 
 if exists("+colorcolumn")
@@ -132,6 +141,10 @@ if !filereadable(".vim-skip-plugins")
     source ~/.vim/plugins/ultisnipts.vim
     source ~/.vim/plugins/vim-test.vim
     source ~/.vim/plugins/vim-to-cterm.vim
+
+    if has('nvim')
+      source ~/.vim/plugins/nvim/autocomplete.vim
+    endif
 
     " source ~/.vim/plugins/php.vim
     source ~/.vim/plugins/ruby.vim
